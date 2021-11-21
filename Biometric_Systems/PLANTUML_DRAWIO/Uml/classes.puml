@@ -1,0 +1,184 @@
+@startuml
+' FIXME: questa classe non ha senso...
+class Prenotazione {
+	- idPrenotazione: int
+	- data/oraEsecuzione: timestamp
+	--
+	+ creaPrenotazione(Studente: int, Corso: String): int
+	+ cancellaPrenotazione(Studente: int): int
+	+ getPrenotazione(): int
+}
+class Utente {
+	- codice: incremental int
+	- nome: String
+	- cognome: String
+	- credenziali: CriptedPassword
+	- annoIscrizione: int
+	- dataNascita: date/time
+	--
+	+ nuovoUtente(nome: String, cognome: String, cred: CriptedPassword, anno:
+	int, data: date/time): void
+	+ cancellaUtente(): unsigned int
+	+ getUtente(): int
+	+ setNome(nome: String): void
+	+ setCognome(cognome: String): void
+	+ setCredenziali(credenziali: CriptedPassword): void
+	+ setAnnoIscrizione(anno: int): void
+	+ setNascita(dataOra: date/time): void
+	+ getNome(): String
+	+ getCognome(): String
+	- getCredenziali(): CriptedPassword
+	+ getAnnoIscrizione(): int
+	+ getNascita(): date/time
+}
+class Studente {
+	' TODO: Turno should be an Enum
+	- matricola: unsigned int
+	--
+	+ nuovoStudente(matricola: unsigned int): void
+	+ cancellaStudente(): int
+	+ getStudente(): int
+	+ calcolaTurno(): String(primo, secondo, \dots)
+	+ settimanaCorrettaP(adesso: timestamp): Boolean
+}
+class Professore {
+	- codice: String
+	- inizioInsegnamento: datetime
+	--
+	+ nuovo(codice: String, inizio: datetime): String
+	+ cancella(): String
+	+ setCodice(cod: String)
+	+ setInizioInsegnamento(anno: datetime): void
+	+ getCodice(): int
+	+ getInizioInsegnamento(): datetime
+	+ getCorsiInsegnati(): list(String)
+	+ getDipartimento(): String
+}
+class Lista_Attesa {
+	- matricola: list(int)
+	---
+	+ creala(Aula, Corso): void
+	+ getStudenti(): list(int)
+	+ addStudente(Studente: int): void
+	+ deleteStudente(Studente: int): int
+}
+class Aula {
+	- codice: String
+	- capienza: int
+	- postiOccupati: int
+	--
+	+ creala(capienza: int, edificio: String): String
+	+ getCapienza(): int
+	+ calcolaOccupati(prenotazione: String): int
+	+ setCapienza(cap: int): void
+}
+class Corso {
+	- codice: int
+	- nome: String
+	- giorno/oraLezioni: list(String, time, time)
+	--
+	+ nuovo(cod: int, nome: String, lezioni: list(String, time, time)): int
+	+ getCodice(): int
+	+ getNome(): String
+	+ getLezioni(): list(String, time, time)
+	+ setCodice(cod: int): void
+	+ setNome(nome: String): void
+	+ setLezioni(lezioni: list(String, time, time)): void
+	+ deleteCorso(): void
+	+ setProfessore(prof: String): void
+	+ getProfessore(): String
+	+ setDipartimento(dip: String): void
+	+ getDipartimento(): String
+	+ getPrenotazioni(): list(int, int)
+}
+class Ricevuta {
+	- codice: int
+	- matricola: int
+	- prenotazione: int
+	- aula: String
+	- corso: String
+	--
+	+ nuovo(cod: int, nome: String, lezioni: list(String, time, time)): int
+	+ setCodice(cod: int): void
+	+ setMatricola(mat: int): void
+	+ setPrenotazione(pren: int): void
+	+ setAula(aula: String): void
+	+ setCorso(cor: String): void
+	+ getCodice(): int
+	+ getMatricola(): int
+	+ getPrenotazione(): int
+	+ getAula(): String
+	+ getCorso(): String
+}
+class Notifica {
+	- codice: int
+	- descrizione: String
+	--
+	+ nuovo(cod: int, descrizione : String): int
+	+ setCodice(cod: int): void
+	+ getCodice(): int
+	+ getAula(): String
+	+ getCorso(): String
+}
+class Dipartimento {
+	- codice: String
+	- nome: String
+	--
+	+ nuovo(codice: String, nome: String): String
+	+ cancella(): String
+	+ setCodice(cod: String)
+	+ setNome(nome: String): void
+	+ getCodice(): int
+	+ getNome(): String
+	+ getFacoltà(): String
+	+ getStudentiIscritti(): list(int)
+	+ getProfessori(): list(String)
+}
+class Facoltà {
+	- codice: String
+	- nome: String
+	--
+	+ nuovo(codice: String, nome: String): String
+	+ cancella(): String
+	+ setCodice(cod: String)
+	+ setNome(nome: String): void
+	+ getCodice(): int
+	+ getNome(): String
+	+ getDipartimenti(): list(String)
+	+ getStudentiIscritti(): list(int)
+	+ getProfessori(): list(String)
+}
+class Edificio {
+	- codice: String
+	- nome: String
+	--
+	+ nuovo(codice: String, nome: String): String
+	+ cancella(): String (a cascata tutte le aule si cancellano)
+	+ getAule(): list(String)
+	+ setCodice(cod: String)
+	+ setNome(nome: String): void
+	+ getCodice(): int
+	+ getNome(): String
+}
+Utente <|-- Studente
+Utente <|-- Professore
+Prenotazione "1..1" o-- "0..*" Studente
+Studente "0..*" o-- "0..*" Corso
+Studente "0..*" o-- "1..1" Notifica
+Studente "0..*" o-- "0..*" Dipartimento
+Studente "0..*" o-- "0..1" Ricevuta
+Professore "0..*" o-- "1..*" Corso
+Professore "1..1" o-- "0..*" Dipartimento
+Prenotazione "1..1" o-- "0..*" Corso
+Prenotazione "1..1" o-- "0..*" Aula
+Prenotazione "0..*" o-- "1..1" Ricevuta
+Dipartimento "0..*" o-- "1..1" Corso
+Dipartimento "1..1" o-- "0..*" Facoltà
+Edificio "0..*" o-- "1..1" Aula
+
+' NOTE: non penso siano necessari
+Studente "0..*" o-- "0..*" Lista_Attesa
+Lista_Attesa "0..*" o-- "0..*" Corso
+Lista_Attesa "0..*" o-- "0..*" Aula
+Lista_Attesa "0..*" o-- "1..1" Notifica
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Studente
+participant "Richiesta Prenotazione" as A
+participant "Verifica Aula" as B
+participant "Aula" as C
+participant "Prenotazione" as D
+participant "Lista D'Attesa" as E
+
+Studente -> A: SendAula(nomeAula)
+activate A
+
+A -> B: Report(nomeAula)
+activate B
+
+B -> C: Search(nomeAula)
+activate C
+
+C --> B: List_Aula(list(nomeAula)
+
+deactivate C
+
+alt successful case
+
+    B -> A: Search Accepted
+
+else any aula exists
+
+    B -> A: Search Fail
+
+deactivate B
+    
+end
+
+A --> Studente: List_Aula(list(nomeAula)
+deactivate A
+
+Studente -> A: send(list(nomeAula[i]))
+activate A
+
+A -> B: Report(nomeAula[i])
+activate B
+
+B -> C: Verify Capienza(nomeAula[i])
+
+alt successful case
+
+    C -> D: Prenotazione Accepted
+    activate D
+    D --> Studente: print("Prenotazione accepted")
+    deactivate D
+    deactivate C
+    deactivate B
+    deactivate A
+    
+else not enough space
+
+    C -> E: Added Student in Waiting List
+    activate E
+    E --> Studente: print("Not enouth space, added in waiting list")
+    deactivate E
+    deactivate C
+    deactivate B
+    deactivate A
+    
+deactivate B
+    
+end
+
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Utente
+participant "Autentica" as A
+participant "Verifica Studente" as B
+participant "Controlla Credenziali" as C
+actor DB_Sapienza
+
+Utente -> A: SendCred(id, password)
+activate A
+
+A -> B: Report(id, password)
+activate B
+
+B -> C: Authorize(id)
+activate C
+
+C --> B: Authorization
+destroy C
+
+alt successful case
+
+    B -> A: Authentication Accepted
+
+else some kind of failure
+
+    B -> A: Authentication Rejected
+    
+deactivate B
+
+end
+
+A --> Utente: Done
+deactivate A
+
+@enduml

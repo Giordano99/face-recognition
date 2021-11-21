@@ -1,0 +1,29 @@
+@startuml
+
+actor Actor as a
+boundary Smartphone as s
+
+entity Reader as r
+'It should be an Actor, but for graphical purposes we have drawn an entity
+
+control Check_Greenpass as c
+entity DDB as d
+
+boundary Yes_No as y_n
+boundary Open_Close as o_c
+entity Door as door
+
+a --|> s
+s --|> r
+r --|> c
+c --|> d
+
+d --|> y_n
+y_n --|> r
+r --|> o_c
+
+o_c --|> door
+
+
+@enduml
+

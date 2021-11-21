@@ -1,0 +1,23 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Studente
+participant "Cancella" as A
+participant "Lista D'Attesa" as C
+
+Studente -> A: SendRequest(postoAttesaUtente)
+activate A
+
+A -> C: Delete
+activate C
+
+C --> A: Cancellation Confirmed
+destroy C
+
+A --> Studente: Cancellation Approved
+deactivate A
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+
+start
+
+:Richiesta Prenotazioni Effettuate Studente/Segreteria;
+
+:Visualizza Tutte Le Prenotazioni Fin'Ora Effettuate;
+
+stop
+
+start
+
+:Richiesta Prenotazioni Effettuate Professore;
+
+:Inserimento Nome Corso, Giorno ed Ora;
+
+if (Corso è Insegnato dal Professore) then (Si)
+
+  if (Giorno/Ora Appartengono a Qualche Corso Insegnato dal Professore) then (Si)
+
+    :Lista Tutte Le Prenotazioni Fatte Dagli Studenti\nPer Tale Corso Insegnato Dal Prof in Tali Momenti;
+    
+  else (No)
+    
+    :Giorno/Ora Failure;
+    
+  endif
+
+else (No)
+
+  :Il Corso Non è Insegnato dal Professore;
+  
+endif
+
+stop
+
+@enduml

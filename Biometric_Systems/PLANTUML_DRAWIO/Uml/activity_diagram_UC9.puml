@@ -1,0 +1,26 @@
+@startuml
+
+start
+
+:Richiesta Registrazione Utente con ID;
+
+if (Verifica Utente) then (ID Non Ancora Presente)
+  
+  repeat
+  
+    :Inserimento Restanti Dati Utente;
+  
+  repeat while (Inserimento Non Completo) is (Si)
+  ->No;
+  
+  :Registrazione Completata;
+  
+else (ID Già Presente)
+  
+  :Registrazione Rifiutata;
+
+endif
+
+stop
+
+@enduml

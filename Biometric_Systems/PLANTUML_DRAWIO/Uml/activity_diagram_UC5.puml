@@ -1,0 +1,27 @@
+@startuml
+
+start
+
+:Richiesta Ricerca Aula;
+
+:Inserisci nome Dell'Aula Da Ricercare;
+
+if (Esiste Almeno un'Aula Con Tale Nome) then (Si)
+
+    :Notifica Lo Studente/Segreteria Che La Ricerca E' Andata A Buon Fine;
+    
+    :Lista Tutte Le Aule Presenti Con Quel Nome;
+    
+    :Seleziona Una Tra Le Possibili Aule Possibili;
+    
+    :Lista Tutte Le Caratteristiche Possibili Di Quell'Aula Scelta;
+    
+else (No)
+    
+    :Nessuna Aula Trovata;
+    
+endif
+
+stop
+
+@enduml

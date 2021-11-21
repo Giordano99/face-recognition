@@ -1,0 +1,63 @@
+@startuml
+left to right direction
+
+package Sistema {
+	package Modifica_Strutture {
+        usecase "Aggiungi Strutture" as UC27
+        usecase "Rimuovi Strutture" as UC28
+	}
+	package Area_Riservata {
+		usecase "Registrazione" as UC12
+		usecase "Login" as UC13
+		usecase "Logout" as UC25
+	}
+	package Profilo {
+		usecase "Modifica Dati Personali" as UC14
+	}
+	package Notifica {
+		usecase "Manda Notifica" as UC16
+	}
+	package Prenota {
+		usecase "Nuova Prenotazione" as UC17
+		usecase "Cancella Prenotazione" as UC18
+		usecase "Visualizza Prenotazioni" as UC19
+		usecase "Stampa/Scarica Ricevuta" as UC20
+	}
+	package Data {
+		usecase "Get Data" as UC21
+	}
+	package Ricerca {
+		usecase "Ricerca" as UC15
+	}
+}
+
+:Studente: as st
+:Segreteria: as seg
+:Professore: as pr
+:Utente: as ut
+:DB_Sapienza: as sap
+:Prodigit: as pg
+
+UC16 <--- pg
+UC21 <- sap
+UC12 --> sap
+UC13 --> sap
+seg --> UC15
+seg --> UC27
+seg --> UC28
+UC15 <--- st
+UC17 <--- st
+UC18 <--- st
+UC20 <--- st
+st <- UC16
+UC21 ..> UC12 : include
+UC21 ..> UC13 : include
+ut --> UC12
+ut --> UC13
+ut -> UC14
+ut --> UC19
+ut --> UC25
+ut <|- pr
+ut <|-- seg
+ut <|-- st
+@enduml

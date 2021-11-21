@@ -1,0 +1,41 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Studente
+participant "Ottieni Prenotazioni" as B
+participant "Cancella Prenotazione" as A
+participant "Prenotazione" as C
+
+Studente -> B: SendRequest()
+activate B
+
+B -> C: Visualize(idUtente)
+activate C
+
+C --> B: Visualization list(prenotazioneUtente)
+deactivate C
+
+B --> Studente: print(list(prenotazioneUtente))
+deactivate B
+
+alt list not empty
+
+
+    Studente -> A: SendRequest(prenotazioneUtente[i])
+    activate A
+
+    A -> C: Delete
+    activate C
+
+    C --> A: Cancellation Confirmed
+    destroy C
+
+    A --> Studente: Cancellation Approved
+    deactivate A
+    
+end
+
+@enduml

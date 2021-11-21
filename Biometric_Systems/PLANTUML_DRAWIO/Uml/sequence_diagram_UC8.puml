@@ -1,0 +1,40 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Utente
+participant "Disconnessione" as A
+participant "Verifica Studente" as B
+participant "Controlla Credenziali" as C
+actor DB_Sapienza
+
+Utente -> A: Logout Request
+activate A
+
+A -> B: Report(id)
+activate B
+
+B -> C: Destroy(id)
+activate C
+
+C --> B: Logout
+destroy C
+
+alt successful case
+
+    B -> A: Logout Accepted
+
+else some kind of failure of server
+
+    B -> A: Logout Failure
+    
+deactivate B
+
+end
+
+A --> Utente: Done
+deactivate A
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Segreteria
+participant "Inserimento" as A
+participant "Aula" as B
+participant "Edificio" as C
+
+Segreteria -> A: SendRequest(nomeEdificio)
+activate A
+
+A -> C: Search
+activate C
+
+
+alt successful case
+
+    C --> A: Search Accepted
+    deactivate C
+    A --> Segreteria: List_Aula(list(nomeEdificio)
+    deactivate A
+
+    Segreteria -> A: send(list(nomeEdificio[i]), nomeAula)
+    activate A
+
+    A -> B: Report(nomeEdificio[i], nomeCorso)
+    activate B
+    
+    B -> C: FindCourse(nomeAula)
+    activate C
+    
+    alt Aula not Found
+
+        C --> B: Search Accepted
+        deactivate C
+        
+        B --> A: <<message>> Insertion Complete
+        deactivate B
+        
+        A --> Segreteria: List_Aula(list(nomeAula)
+        deactivate A
+
+    else
+        
+        C --> Segreteria: Failure
+        destroy C
+    end
+
+else any aula exists
+
+    B --> Segreteria: Search Fail
+    destroy B
+    
+end
+
+@enduml

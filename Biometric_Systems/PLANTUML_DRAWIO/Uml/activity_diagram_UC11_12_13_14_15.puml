@@ -1,0 +1,145 @@
+@startuml
+
+start
+
+:Richiesta Inserimento Oggetto;
+
+:Seleziona Tipologia Oggetto Da Inserire;
+
+if (Edificio) then
+
+    :Inserisci Codice Edificio, Nome Edificio Da Inserire;
+
+    if (Non Esiste Un Edificio Con Tale Codice) then (Si)
+
+        :Effettua L'Inserimento;
+
+        :Notifica La Segreteria Dell'Avvenuto Inserimento;
+
+    else (No)
+
+        :Notifica Segreteria Che Già Esiste Un Tale Edificio;
+
+    endif
+endif
+if (Facoltà) then
+
+    :Inserisci Codice Facoltà, Nome Facoltà Da Inserire;
+
+    if (Non Esiste Una Facoltà Con Tale Codice) then (Si)
+
+        :Effettua L'Inserimento;
+
+        :Notifica La Segreteria Dell'Avvenuto Inserimento;
+
+    else (No)
+
+        :Notifica Segreteria Che Già Esiste Una Tale Facoltà;
+
+    endif
+endif
+if (Dipartimento) then
+
+    :Inserisci Nome Facoltà Cui Afferisce;
+
+    if (Esiste Almeno Una Facoltà) then (Si)
+
+        :Lista Tutte Le Possibili Facoltà;
+
+        :Seleziona Una Tra Le Varie Facoltà;
+
+        :Inserisci Nome Dipartimento Da Inserire;
+
+        if (Non Esiste Tale Dipartimento) then (Si)
+
+            :Effettua L'Inserimento;
+
+            :Notifica La Segreteria Dell'Avvenuto Inserimento;
+
+        else (No)
+
+            :Già Esiste Un Dipartimento Simile;
+
+        endif
+
+    else (No)
+
+        :Non Esiste Alcuna Facoltà Simile;
+
+    endif
+endif
+if (Aula) then
+
+    :Inserisci Nome Edificio Cui Afferisce;
+
+    if (Esiste Almeno Un Edificio) then (Si)
+
+        :Lista Tutti I Possibili Edifici;
+
+        :Seleziona Uno Tra I Vari Edifici;
+
+        :Inserisci Codice Aula, Nome Aula Da Inserire;
+
+        if (Non Esiste Tale Aula) then (Si)
+
+            :Effettua L'Inserimento;
+
+            :Notifica La Segreteria Dell'Avvenuto Inserimento;
+
+        else (No)
+
+            :Già Esiste Un'Aula Simile;
+
+        endif
+
+    else (No)
+
+        :Non Esiste Alcun Edificio Simile;
+
+    endif
+endif
+if (Corso) then
+
+    :Inserisci Nome Facoltà Cui Afferisce;
+
+    if (Esiste Almeno Una Facoltà) then (Si)
+
+        :Lista Tutte Le Possibili Facoltà;
+
+        :Seleziona Una Tra Le Varie Facoltà;
+
+        :Inserisci Nome Dipartimento Cui Afferisce;
+
+        if (Esiste Almeno Un Dipartimento) then (Si)
+
+            :Lista Tutti I Possibili Dipartimenti;
+
+            :Seleziona Uno Tra I Vari Dipartimenti;
+
+            :Inserisci Codice Corso, Nome Corso Da Inserire;
+
+            if (Non Esiste Almeno Un Corso Con Tale Codice) then (Si)
+
+                :Inserisci Il Corso;
+
+                :Notifica La Segreteria Dell'Avvenuto Inserimento;
+
+            else (No)
+
+                :Già Esiste Tale Corso;
+
+            endif
+
+        else (No)
+
+            :Non Esiste Alcun Dipartimento Simile;
+
+        endif
+
+    else (No)
+
+        :Non Esiste Alcuna Facoltà Simile;
+
+endif;
+
+@enduml

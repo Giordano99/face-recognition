@@ -1,0 +1,45 @@
+@startuml
+
+start
+
+:Richiesta Disconnessione Utente;
+
+if (Verifica Dati Pendenti) then (Ci sono)
+  
+  if (Salvataggio?) then (Si)
+    
+    :Salvataggio Dati Pendenti;
+  
+  else (No)
+    
+    :Scarta Dati Pendenti;
+    
+  endif
+
+  if (Richiesta Connessione Server) then (Successo)
+    
+    :Disconnessione Utente;
+    
+  else (Fallita)
+    
+    :Server Failure;
+  
+  endif
+  
+else (Non Ci Sono)
+  
+  if (Richiesta Connessione Server) then (Successo)
+    
+    :Disconnessione Utente;
+    
+  else (Fallita)
+    
+    :Server Failure;
+    
+  endif
+  
+endif
+
+stop
+
+@enduml

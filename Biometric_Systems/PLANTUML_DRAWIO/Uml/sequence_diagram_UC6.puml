@@ -1,0 +1,48 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Studente
+participant "Richiesta Ricevuta" as A
+participant "Ricevuta" as B
+participant "Verifica Prenotazione" as C
+participant "Prenotazione" as D
+
+Studente -> A: SendRequest(nomePrenotazione)
+activate A
+
+A -> B: Report(nomeAula)
+activate B
+
+B -> C: Search(nomePrenotazione)
+activate C
+
+C --> D: Searching
+activate D
+
+alt successful case
+
+    D --> C: Search Accepted
+    deactivate D
+    C --> B: Generate(DataPrenotazione)
+    deactivate C
+    B --> A: <<message>> DataPrenotazione
+    deactivate B
+    A --> Studente: print(Ricevuta)
+    deactivate A
+    
+else not exists Prenotazione
+
+    D --> A: Search Fail
+    destroy D
+    activate A
+    deactivate C
+    deactivate B
+    A --> Studente: print("Not Exists Prenotazione)
+    deactivate A
+
+end
+
+@enduml

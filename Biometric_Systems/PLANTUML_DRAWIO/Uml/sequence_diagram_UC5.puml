@@ -1,0 +1,100 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Studente
+actor Segreteria
+participant "Cerca" as A
+participant "Verifica Aula" as B
+participant "Aula" as C
+
+Studente -> A: SendAula(nomeAula)
+activate A
+
+A -> B: Report(nomeAula)
+activate B
+
+B -> C: Search(nomeAula)
+activate C
+
+C --> B: List_Aula(list(nomeAula)
+
+deactivate C
+
+alt successful case
+
+    B -> A: Search Accepted
+
+else any aula exists
+
+    B -> A: Search Fail
+
+deactivate B
+    
+end
+
+A --> Studente: List_Aula(list(nomeAula)
+deactivate A
+
+Studente -> A: send(list(nomeAula[i]))
+activate A
+
+A -> C: Report(nomeAula[i])
+activate B
+activate C
+
+C --> B: <<packet>> SpecificationAula(list(nomeAula[i]))
+deactivate C
+
+B --> A: <<message>> Specification(list(nomeAula[i]))
+deactivate B
+
+A --> Studente: SpecificationAula((list(nomeAula[i]))
+deactivate A
+
+Segreteria -> A: SendAula(nomeAula)
+activate A
+
+A -> B: Report(nomeAula)
+activate B
+
+B -> C: Search(nomeAula)
+activate C
+
+C --> B: List_Aula(list(nomeAula)
+
+deactivate C
+
+alt successful case
+
+    B -> A: Search Accepted
+
+else any aula exists
+
+    B -> A: Search Fail
+
+deactivate B
+    
+end
+
+A --> Segreteria: List_Aula(list(nomeAula)
+deactivate A
+
+Segreteria -> A: send(list(nomeAula[i]))
+activate A
+
+A -> C: Report(nomeAula[i])
+activate B
+
+C --> B: <<packet>> SpecificationAula(list(nomeAula[i]))
+deactivate C
+
+B --> A: <<message>> Specification(list(nomeAula[i]))
+deactivate B
+
+A --> Segreteria: SpecificationAula((list(nomeAula[i]))
+deactivate A
+
+@enduml

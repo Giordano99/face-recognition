@@ -1,0 +1,35 @@
+@startuml
+
+start
+
+:Richiesta Cancellazione Prenotazione;
+
+:Cerca Prenotazioni Effettuate;
+
+if (C'è Almeno una Prenotazione Effettuata) then (Si)
+
+    :Lista Le Prenotazioni;
+    
+    :Seleziona Una Prenotazione da Cancellare;
+    
+    if (Sei Sicuro?) then (Si)
+    
+        :Eliminala Dal Sistema;
+    
+        :Notifica L'Utente Dell'Avvenuta Eliminazione;
+        
+    else (No)
+        
+        :Abortisci l'Operazione;
+        
+    endif
+    
+else (no)
+
+    :Notifica Lo Studente Dicendo Che Non è Ancora Presente Alcuna Prenotazione;
+    
+endif
+
+stop
+
+@enduml

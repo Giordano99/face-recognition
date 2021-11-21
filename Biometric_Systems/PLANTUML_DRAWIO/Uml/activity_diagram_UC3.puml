@@ -1,0 +1,37 @@
+@startuml
+
+start
+
+:Richiesta Prenotazione Aula;
+
+:Inserimento Nome Aula;
+
+if (Verifica Nome Aula) then (Non Esiste Alcuna Aula)
+  
+  :Ricerca Fallita;
+  
+else (Ne Esiste Almeno Una)
+
+  :Lista Tutte Le Aule Possibili Con Tale Nome;
+  
+  :Seleziona Un'Aula;
+  
+  if (Capienza Aula) then (Non C'è Posto)
+  
+    :Aggiungi ID Studente in Lista D'Attesa;
+    
+    :Comunica L'Inserimento in Lista D'Attesa;
+
+  else (C'è Almeno Un Posto Libero)
+    
+    :Effettua Prenotazione Per Tale Studente;
+    
+    :Comunica Che La Prenotazione E' Andata a Buon Fine;
+    
+  endif
+
+endif
+
+stop
+
+@enduml

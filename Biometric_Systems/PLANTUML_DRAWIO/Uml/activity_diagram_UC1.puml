@@ -1,0 +1,36 @@
+@startuml
+
+start
+
+repeat
+    
+    :Cerca Nuove Notifiche da Notificare allo Studente;
+    
+    if (C'è Almeno Una Notifica) then (Si)
+        
+        :Allerta Lo Studente;
+        
+        :Lista Tutte Le Notifiche Per Possibilità Prenotazione;
+        
+        :Seleziona Una Scelta;
+        
+        if (Studente Conferma Inserimento Nelle Prenotazioni) then (Si)
+            
+            :Inserisci Lo Studente Nella Prenotazione;
+            
+            :Avvisa Lo Studente Dell'Esito Positivo Della Prenotazione;
+            
+        else (No)
+            
+            :Mantieni Lo Studente In Lista D'Attesa;
+            
+        endif
+    
+    endif
+
+repeat while (Loop Every 5 Seconds) is (Yes)
+-> (Close Application)
+
+stop
+
+@enduml

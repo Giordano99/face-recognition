@@ -1,0 +1,103 @@
+@startuml
+
+:Studente: as st
+:DB_Sapienza: as sap
+:Segreteria: as seg
+:Prodigit: as pg
+:Professore: as pr
+:Utente: as ut
+ut <|-- pr
+ut <|-- st
+ut <|-- seg
+
+boundary Cancella
+boundary Ottieni_Prenotazioni
+boundary Richiesta_Prenotazione
+boundary Richiesta_Ricevuta
+boundary Autentica
+boundary Accesso_Notifiche
+boundary Controlla_Credenziali
+boundary Invia_Notifiche
+boundary Cerca
+boundary Disconnessione
+boundary Registrazione
+boundary Inserimento
+boundary Eliminazione
+
+
+entity Prenotazione
+entity Lista_Attesa
+entity Ricevuta
+entity Corso
+entity Aula
+entity Dipartimento
+entity Edificio
+entity Facoltà
+entity Notifica
+
+control Controlla_Turno
+control Controlla_Corso
+control Controlla_Capienza
+control Verifica_Utente
+control Verifica_Aula
+control Verifica_Prenotazione
+
+
+st -- Cancella
+ut -- Ottieni_Prenotazioni
+st -- Richiesta_Prenotazione
+st -- Richiesta_Ricevuta
+ut -- Autentica
+ut -- Disconnessione
+ut -- Registrazione
+st -- Accesso_Notifiche
+st -- Cerca
+seg -- Cerca
+sap -- Controlla_Credenziali
+pg -- Invia_Notifiche
+seg -- Inserimento
+seg -- Eliminazione
+
+Facoltà -- Dipartimento
+Edificio -- Aula
+Corso -- Aula
+Inserimento -- Edificio
+Inserimento -- Facoltà
+Inserimento -- Aula
+Inserimento -- Dipartimento
+Inserimento -- Corso
+Eliminazione -- Facoltà
+Eliminazione -- Aula
+Eliminazione -- Dipartimento
+Eliminazione -- Corso
+Eliminazione -- Edificio
+Disconnessione -- Verifica_Utente
+Verifica_Utente -- Controlla_Credenziali
+Registrazione -- Verifica_Utente
+Verifica_Utente -- Controlla_Credenziali
+Cerca -- Verifica_Aula
+Verifica_Aula -- Aula
+Richiesta_Ricevuta -- Ricevuta
+Autentica -- Verifica_Studente
+Controlla_Credenziali -- Verifica_Studente
+Notifica -- Accesso_Notifiche
+Notifica -- Invia_Notifiche
+Notifica -- Prenotazione
+Cancella -- Prenotazione
+Ottieni_Prenotazioni -- Prenotazione
+Richiesta_Prenotazione -- Verifica_Aula
+Verifica_Aula -- Aula
+Verifica_Aula -- Lista_Attesa
+Verifica_Aula -- Prenotazione
+Lista_Attesa -- Cancella
+Ricevuta -- Verifica_Prenotazione
+Verifica_Prenotazione -- Prenotazione
+
+Aula -- Controlla_Capienza
+Controlla_Capienza -- Prenotazione
+Prenotazione -- Controlla_Turno
+Prenotazione -- Controlla_Corso
+Controlla_Corso -- Corso
+Controlla_Turno -- Corso
+
+@enduml

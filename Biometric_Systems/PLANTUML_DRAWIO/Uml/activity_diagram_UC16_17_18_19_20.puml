@@ -1,0 +1,189 @@
+@startuml
+
+start
+
+:Richiesta Eliminazione Oggetto;
+
+:Seleziona Tipologia Oggetto Da Eliminare;
+
+if (Edificio) then
+    :Inserisci Nome Edificio Da Eliminare;
+    if (Esiste Almeno Un Edificio Con Tale Nome) then (Si)
+        :Lista Tutti I Possibili Edifici;
+        :Seleziona Una Tra i Possibili Edifici;
+        if (Sei Sicuro?) then (Si)
+            :Eliminalo Dal Sistema;
+            :Elimina A Cascata Tutte Le Aule Ad Esso Connesse;
+            :Notifica La Segreteria Dell'Avvenuta Eliminazione;
+        else (No)
+            :Abort Operation;
+        endif
+    else (No)
+        :Notifica Segreteria Inesistenza Di Un Tale Edificio;
+    endif
+endif
+
+if (Facoltà) then
+
+    :Inserisci Nome Facoltà Da Eliminare;
+
+    if (Esiste Almeno Una Facoltà Con Tale Nome) then (Si)
+
+        :Lista Tutte Le Possibili Facoltà;
+
+        :Seleziona Una Tra Le Possibili Facoltà;
+
+        if (Sei Sicuro?) then (Si)
+            :Eliminala Dal Sistema;
+
+            :Elimina In Cascata Tutti i Dipartimenti Ad Essa Connessa;
+
+            :Notifica La Segreteria Dell'Avvenuta Eliminazione;
+
+        else (No)
+
+            :Abort Operation;
+
+        endif
+
+    else (No)
+
+        :Notifica Segreteria Inesistenza Di Una Tale Facoltà;
+
+    endif
+
+endif
+
+if (Dipartimento) then
+
+    :Inserisci Nome Facoltà Cui Afferisce;
+
+    if (Esiste Almeno Una Facoltà) then (Si)
+
+        :Lista Tutte Le Possibili Facoltà;
+
+        :Seleziona Una Tra Le Varie Facoltà;
+
+        :Inserisci Nome Dipartimento Da Eliminare;
+
+        if (Esiste Un Dipartimento Simile) then (Si)
+
+            if (Sei Sicuro?) then (Si)
+                :Elimina Tale Dipartimento;
+
+                :Elimina In Cascata Tutti i Corsi Cui Afferiscono;
+
+                :Notifica La Segreteria Dell'Avvenuta Eliminazione;
+
+            else (No)
+
+                :Abort Operation;
+
+            endif
+
+        else (No)
+
+            :Non Esiste Un Dipartimento Simile;
+
+        endif
+
+    else (No)
+
+        :Non Esiste Alcuna Facoltà Simile;
+
+    endif
+
+endif
+
+if (Aula) then
+
+    :Inserisci Nome Edificio Cui Afferisce;
+
+    if (Esiste Almeno Un Edificio) then (Si)
+
+        :Lista Tutte I Possibili Edifici;
+
+        :Seleziona Uno Tra I Vari Edifici;
+
+        :Inserisci Nome Aula Da Eliminare;
+
+        if (Esiste Un'Aula Simile) then (Si)
+
+            if (Sei Sicuro?) then (Si)
+                :Elimina Tale Aula;
+
+                :Notifica La Segreteria Dell'Avvenuta Eliminazione;
+
+            else (No)
+
+                :Abort Operation;
+
+            endif
+
+        else (No)
+
+            :Non Esiste Alcuna Aula Simile;
+
+        endif
+
+    else (No)
+
+        :Non Esiste Alcun Edificio Simile;
+
+    endif
+
+endif
+
+if (Corso) then
+
+    :Inserisci Nome Facoltà Cui Afferisce;
+
+    if (Esiste Almeno Una Facoltà) then (Si)
+
+        :Lista Tutte Le Possibili Facoltà;
+
+        :Seleziona Una Tra Le Varie Facoltà;
+
+        :Inserisci Nome Dipartimento Cui Afferisce;
+
+        if (Esiste Almeno Un Dipartimento) then (Si)
+
+            :Lista Tutti I Possibili Dipartimenti;
+
+            :Seleziona Uno Tra I Vari Dipartimenti;
+
+            :Inserisci Nome Corso Da Eliminare;
+
+            if (Esiste Almeno Un Corso Con Tale Nome) then (Si)
+
+                if (Sei Sicuro?) then (Si)
+
+                    :Elimina Tale corso;
+
+                    :Notifica La Segreteria Dell'Avvenuta Eliminazione;
+
+                else (No)
+
+                    :Abort Operation;
+
+                endif
+
+            else (No)
+
+                :Non Esiste Alcun Corso Simile;
+
+            endif
+
+        else (No)
+
+            :Non Esiste Alcun Dipartimento Simile;
+
+        endif
+
+    else (No)
+
+        :Non Esiste Alcuna Facoltà Simile;
+
+endif;
+
+@enduml

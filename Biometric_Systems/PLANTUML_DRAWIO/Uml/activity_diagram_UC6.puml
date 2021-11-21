@@ -1,0 +1,35 @@
+@startuml
+
+start
+
+:Richiesta Stampa/Scarica;
+
+:Richiedi Lista Prenotazione In corso/Scadute;
+
+if (Esiste Almeno Una Prenotazione) then (Si)
+
+    :Notifica L'Utente Che Esiste almeno Una Prenotazione;
+    
+    :Lista Tutte Le Prenotazioni;
+    
+    :Seleziona Una Tra Le Possibili Prenotazioni;
+    
+    :Genera La Ricevuta Annessa;
+    
+    if (Si Desidera Scaricarla Ora?) then (Si)
+    
+        :Inizia Scaricamento Ricevuta;
+        
+        :Notifica Terminazione Scaricamento Ricevuta;
+        
+    endif
+    
+else (No)
+
+    :Non Esiste Alcuna Prenotazione Mai Effettuata;
+    
+endif
+
+stop
+
+@enduml

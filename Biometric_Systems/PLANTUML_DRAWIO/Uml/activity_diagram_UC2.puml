@@ -1,0 +1,35 @@
+@startuml
+
+start
+
+:Apertura Portale Lista D'Attesa;
+
+:Richiesta Visualizzazione Posti D'Attesa Disponibili;
+
+if (C'è Almeno un Posto Prenotato) then (Si)
+
+    :Lista Tutti i Posti Prenotati;
+    
+    :Seleziona un Posto;
+    
+    :Cancella tale Posto Prenotato;
+    
+    if (Sei Sicuro?) then (Si)
+    
+        :Cancellazione Confermata;
+        
+    else (No)
+    
+        :Cancellazione Non Confermata;
+        
+    endif
+    
+else (No)
+    
+    :Non E' Presente Alcun Posto Prenotato;
+    
+endif
+
+stop
+
+@enduml

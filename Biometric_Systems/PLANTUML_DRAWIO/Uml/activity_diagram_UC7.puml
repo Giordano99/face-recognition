@@ -1,0 +1,15 @@
+@startuml
+
+start
+
+:Inserisci Credenziali Utente;
+
+if (Controlla Credenziali Utente) then (Corrette)
+  :Autenticazione Accettata;
+else (Errate)
+  :Autenticazione Rifiutata;
+endif
+
+stop
+
+@enduml

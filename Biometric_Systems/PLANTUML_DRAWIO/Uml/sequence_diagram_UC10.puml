@@ -1,0 +1,66 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Studente
+actor Professore
+actor Segreteria
+participant "Ottieni Prenotazioni" as A
+participant "Prenotazione" as C
+
+Studente -> A: SendRequest()
+activate A
+
+A -> C: Visualize(idUtente)
+activate C
+
+C --> A: Visualization list(prenotazioneUtente)
+deactivate C
+
+A --> Studente: print(list(prenotazioneUtente))
+deactivate A
+
+Segreteria -> A: SendRequest()
+activate A
+
+A -> C: Visualize(idSegreteria)
+activate C
+
+C --> A: Visualization list(prenotazioneAll)
+deactivate C
+
+A --> Segreteria: print(list(prenotazioneAll))
+deactivate A
+
+Professore -> A: SendRequest(nomeCorso, giorno, ora)
+activate A
+
+A -> C: Visualize(idProfessore, nomeCorso, giorno, ora)
+activate C
+
+alt successful case
+
+    C --> A: Visualization Accepted
+    deactivate C
+    A --> Professore: print(list(prenotazioneCorsoGiorno))
+    deactivate A
+    
+else NomeCorso not in Corso(Professore)
+
+    C --> A: NomeCorso isn't for this Professore
+    deactivate C
+    A --> Professore: print("NomeCorso isn't find for you")
+    deactivate A
+    
+else Giorno/Ora not exists for any Professore's Courses
+    
+    C -> A: Giorno/Ora Failure
+    deactivate C
+    A --> Professore: print("Giorno/Ora Failure")
+    deactivate A
+end
+
+
+@enduml

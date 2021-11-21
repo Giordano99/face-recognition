@@ -1,0 +1,33 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Segreteria
+participant "Eliminazione" as A
+participant "Aula" as B
+
+Segreteria -> A: SendRequest(nomeAula)
+activate A
+
+A -> B: Search
+activate B
+
+
+alt Aula not Found
+
+    B --> A: Search Accepted
+    deactivate B
+        
+    A --> Segreteria: <<message>> Insertion Complete
+    deactivate A
+        
+else any Aula exists
+
+    B --> Segreteria: Search Fail
+    destroy B
+    
+end
+
+@enduml

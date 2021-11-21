@@ -1,0 +1,48 @@
+    Research problem 5: Extracting a distinct and
+    portable “signature” of a subject from the data gener-
+    ated by the built-in sensors present in smartphones and
+    wearable devices.
+
+    -- Bello e fattibile ... noi abbiamo già lavorato su gait catturato da accelerometro e handwriting usando lo smartphone nell'aria --
+
+
+Pensavo di fare prima di tutto una ricerca su cosa si intendesse per "firma portabile", capire come ottenere bene questa firma, studiare i sensori built-in di spartphones e dispositivi portatili (tipo l'accelerometro) e capire come sfruttare tali metodi di riconoscimento o migliorare gli esistenti  -- LO ACCETTEREI CON RISERVA PER LA DIFFICOLTÀ
+
+
+    Research problem 7: Developing computationally
+    simple methods for active user authentication in
+    resource-constrained wearable devices that have limited
+    battery power.
+
+    -- Bello e fattibile --
+
+
+Bisogna trovare tutti i possibili modi di autenticazione, trovare il metodo più economico per la batteria e provare a ridurne la potenza di carica (ridurre l'energy consuming) -- LO ACCETTEREI
+
+
+    Research problem 9: Designing presentation attack
+    detectors for resource-constrained IoT devices such as
+    smartphones and wearable devices.
+
+    -- Bello e c'è stato un tesista che ci ha provato con una deep network utilizzando un approccio di anomaly detection qualunque fosse il tipo di attacco. --
+
+
+Quindi l'obiettivo è leggere i papers e trovare un possibile sistema che può individuare alcuni tipi di attachi (bisogna conoscere ed enumerare tali tipi di attacchi per un insieme ristretto di tipi di dispositivi) -- LO ACCETTEREI CON RISERVA PER LA DIFFICOLTÀ
+
+    Research problem 11: Developing methods for en-
+    hancing poor quality data such that the biometric con-
+    tent is not unduly perturbed.
+
+    -- Bello, computer vision e signal processing. --
+
+
+E' possibile che i dati biometrici sia perturbati per alcune ragioni... Si vogliono trovare le ragioni per le quali un  segnale può divenire perturbato e quali metodi generali, sopratutto biometrici, possono portare ad avere il più grande miglioramento possibile per la qualità  -- LO ACCETTEREI
+
+    Research problem 17: Developing methods for estab-
+    lishing the degree of correlation, at the biological level,
+    between two or more biometric traits.
+
+    -- Bello ... --
+
+
+E' importante studiare tutti i biometric traits, sopratutto in termini biologici. Dopo bisognerebbe provare a trovare una correlazione tra di loro (ad esempio le forme dei tratti biometrici o altro)... Ma sembra che non ci sono correlazioni per l'informatico, giusto ?? -- LO ACCETTEREI
